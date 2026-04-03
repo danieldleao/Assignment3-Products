@@ -48,6 +48,7 @@ public class Product {
     public final String getSku() {
         return sku;
     }
+
     public final void setSku(String sku) {
         this.sku = sku;
     }
@@ -56,6 +57,7 @@ public class Product {
     public final String getProductName() {
         return productName;
     }
+
     public final void setProductName(String productName) {
         this.productName = productName;
     }
@@ -64,6 +66,7 @@ public class Product {
     public final double getUnitCost() {
         return unitCost;
     }
+
     public final void setUnitCost(double unitCost) {
         this.unitCost = unitCost;
     }
@@ -72,6 +75,7 @@ public class Product {
     public final double getSalePrice() {
         return salePrice;
     }
+
     public final void setSalePrice(double salePrice) {
         this.salePrice = salePrice;
     }
@@ -80,6 +84,7 @@ public class Product {
     public final int getQuantityOnHand() {
         return quantityOnHand;
     }
+
     public final void setQuantityOnHand(int quantityOnHand) {
         this.quantityOnHand = quantityOnHand;
     }
@@ -88,14 +93,11 @@ public class Product {
     public final int getQuantityNeeded() {
         return quantityNeeded;
     }
+
     public final void setQuantityNeeded(int quantityNeeded) {
         this.quantityNeeded = quantityNeeded;
     }
 
-    // Getter and Setter for any special instructions
-    public final String getSpecialInstructions() {
-        return specialInstructions;
-    }
     public final void setSpecialInstructions(String specialInstructions) {
         this.specialInstructions = specialInstructions;
     }
