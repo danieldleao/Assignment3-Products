@@ -6,204 +6,227 @@ Date: 2026-04-02
 Activity Name: Assignment 3 - Inheritance - Product List
 */
 
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.time.LocalDate;
+// Scanner object - user input
+static Scanner scanner = new Scanner(System.in);
 
-public class Main {
+// ArrayList used to store all products
+static ArrayList<Product> products = new ArrayList<>();
 
-    static Scanner scanner = new Scanner(System.in);
-    static ArrayList<Product> products = new ArrayList<>();
+void main() {
 
-    public static void main(String[] args) {
-        int choice;
-        do {
-            System.out.println("\n==== PRODUCT MENU ====");
-            System.out.println("1) Create Product");
-            System.out.println("2) Create Perishable Product");
-            System.out.println("3) Edit Product by SKU");
-            System.out.println("4) Delete Product by SKU");
-            System.out.println("5) Display Product by SKU");
-            System.out.println("6) Display all Products");
-            System.out.println("7) Exit");
-            System.out.print("Select option: ");
-            choice = scanner.nextInt();
-            scanner.nextLine();
+    int choice;
 
-            switch (choice) {
+    // Program runs until user chooses Exit
+    do {
+        // Display menu
+        IO.println("\n==== PRODUCT MENU ====");
+        IO.println("1) Create Product");
+        IO.println("2) Create Perishable Product");
+        IO.println("3) Edit Product by SKU");
+        IO.println("4) Delete Product by SKU");
+        IO.println("5) Display Product by SKU");
+        IO.println("6) Display all Products");
+        IO.println("7) Exit");
 
-                case 1 -> createProduct();
-                case 2 -> createPerishableProduct();
-                case 3 -> editProduct();
-                case 4 -> deleteProduct();
-                case 5 -> displayProduct();
-                case 6 -> displayAllProducts();
-                case 7 -> System.out.println("Exiting program...");
-                default -> System.out.println("Invalid option.");
-
-            }
-
-        } while (choice != 7);
-    }
-
-    static void createProduct() {
-
-        System.out.print("Enter SKU (8+ digits): ");
-        String sku = scanner.nextLine();
-
-        System.out.print("Product name: ");
-        String name = scanner.nextLine();
-
-        System.out.print("Unit cost: ");
-        double cost = scanner.nextDouble();
-
-        System.out.print("Sale price: ");
-        double price = scanner.nextDouble();
-
-        System.out.print("Quantity on hand: ");
-        int qty = scanner.nextInt();
-
-        System.out.print("Quantity needed: ");
-        int needed = scanner.nextInt();
+        // Ask user for menu choice
+        IO.print("Select option: ");
+        choice = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.print("Special instructions: ");
-        String instructions = scanner.nextLine();
-
-        Product product = new Product(sku, name, cost, price, qty, needed, instructions);
-        products.add(product);
-
-        System.out.println("Product added.");
-    }
-
-    static void createPerishableProduct() {
-
-        System.out.print("Enter SKU: ");
-        String sku = scanner.nextLine();
-
-        System.out.print("Product name: ");
-        String name = scanner.nextLine();
-
-        System.out.print("Unit cost: ");
-        double cost = scanner.nextDouble();
-
-        System.out.print("Sale price: ");
-        double price = scanner.nextDouble();
-
-        System.out.print("Quantity on hand: ");
-        int qty = scanner.nextInt();
-
-        System.out.print("Quantity needed: ");
-        int needed = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.print("Special instructions: ");
-        String instructions = scanner.nextLine();
-
-        System.out.print("Expiry year: ");
-        int year = scanner.nextInt();
-
-        System.out.print("Expiry month: ");
-        int month = scanner.nextInt();
-
-        System.out.print("Expiry day: ");
-        int day = scanner.nextInt();
-
-        LocalDate expiry = LocalDate.of(year, month, day);
-
-        PerishableProduct product = new PerishableProduct(
-                sku, name, cost, price, qty, needed, instructions, expiry
-        );
-
-        products.add(product);
-
-        System.out.println("Perishable product added.");
-    }
-
-    static Product findProduct(String sku) {
-
-        for (Product p : products) {
-            if (p.getSku().equals(sku)) {
-                return p;
-            }
+        // Menu option
+        switch (choice) {
+            case 1 -> createProduct();
+            case 2 -> createPerishableProduct();
+            case 3 -> editProduct();
+            case 4 -> deleteProduct();
+            case 5 -> displayProduct();
+            case 6 -> displayAllProducts();
+            case 7 -> IO.println("Exiting program...");
+            default -> IO.println("Invalid option.");
         }
+    } while (choice != 7);
+}
 
-        return null;
-    }
+// Method to create a normal product
+static void createProduct() {
 
-    static void editProduct() {
+    // Ask user for product information
+    IO.print("Enter SKU: ");
+    String sku = scanner.nextLine();
 
-        System.out.print("Enter SKU to edit: ");
-        String sku = scanner.nextLine();
+    IO.print("Product name: ");
+    String name = scanner.nextLine();
 
-        Product p = findProduct(sku);
+    IO.print("Unit cost: ");
+    double cost = scanner.nextDouble();
 
-        if (p == null) {
-            System.out.println("Product not found.");
-            return;
-        }
+    IO.print("Sale price: ");
+    double price = scanner.nextDouble();
 
-        System.out.print("New name: ");
-        p.setProductName(scanner.nextLine());
+    IO.print("Quantity on hand: ");
+    int qty = scanner.nextInt();
 
-        System.out.print("New unit cost: ");
-        p.setUnitCost(scanner.nextDouble());
+    IO.print("Quantity needed: ");
+    int needed = scanner.nextInt();
+    scanner.nextLine();
 
-        System.out.print("New sale price: ");
-        p.setSalePrice(scanner.nextDouble());
+    IO.print("Special instructions: ");
+    String instructions = scanner.nextLine();
 
-        System.out.print("New quantity on hand: ");
-        p.setQuantityOnHand(scanner.nextInt());
+    // Create product - object
+    Product product = new Product(sku, name, cost, price, qty, needed, instructions);
 
-        System.out.print("New quantity needed: ");
-        p.setQuantityNeeded(scanner.nextInt());
-        scanner.nextLine();
+    // Add product to the list
+    products.add(product);
 
-        System.out.print("New instructions: ");
-        p.setSpecialInstructions(scanner.nextLine());
+    IO.println("Product added.");
+}
 
-        System.out.println("Product updated.");
-    }
+// Method to create a perishable product
+static void createPerishableProduct() {
 
-    static void deleteProduct() {
+    IO.print("Enter SKU: ");
+    String sku = scanner.nextLine();
 
-        System.out.print("Enter SKU to delete: ");
-        String sku = scanner.nextLine();
+    IO.print("Product name: ");
+    String name = scanner.nextLine();
 
-        Product p = findProduct(sku);
+    IO.print("Unit cost: ");
+    double cost = scanner.nextDouble();
 
-        if (p != null) {
-            products.remove(p);
-            System.out.println("Product deleted.");
-        } else {
-            System.out.println("Product not found.");
+    IO.print("Sale price: ");
+    double price = scanner.nextDouble();
+
+    IO.print("Quantity on hand: ");
+    int qty = scanner.nextInt();
+
+    IO.print("Quantity needed: ");
+    int needed = scanner.nextInt();
+    scanner.nextLine();
+
+    IO.print("Special instructions: ");
+    String instructions = scanner.nextLine();
+
+    // Ask user for expiry date
+    IO.print("Expiry year: ");
+    int year = scanner.nextInt();
+
+    IO.print("Expiry month: ");
+    int month = scanner.nextInt();
+
+    IO.print("Expiry day: ");
+    int day = scanner.nextInt();
+
+    // Convert values into LocalDate
+    LocalDate expiry = LocalDate.of(year, month, day);
+
+    // Create perishable product
+    PerishableProduct product = new PerishableProduct(
+            sku, name, cost, price, qty, needed, instructions, expiry
+    );
+
+    // Add to list
+    products.add(product);
+
+    IO.println("Perishable product added.");
+}
+
+// Method to find a product by SKU
+static Product findProduct(String sku) {
+
+    // Loop through products
+    for (Product p : products) {
+
+        // Check if SKU matches
+        if (p.getSku().equals(sku)) {
+            return p;
         }
     }
 
-    static void displayProduct() {
+    // If product not found
+    return null;
+}
 
-        System.out.print("Enter SKU: ");
-        String sku = scanner.nextLine();
+// Method to edit a product
+static void editProduct() {
 
-        Product p = findProduct(sku);
+    IO.print("Enter SKU to edit: ");
+    String sku = scanner.nextLine();
 
-        if (p != null) {
-            System.out.println(p);
-        } else {
-            System.out.println("Product not found.");
-        }
+    // Find product in list
+    Product p = findProduct(sku);
+
+    // If product does not exist
+    if (p == null) {
+        IO.println("Product not found.");
+        return;
     }
 
-    static void displayAllProducts() {
+    // Update product information
+    IO.print("New name: ");
+    p.setProductName(scanner.nextLine());
 
-        if (products.isEmpty()) {
-            System.out.println("No products available.");
-            return;
-        }
+    IO.print("New unit cost: ");
+    p.setUnitCost(scanner.nextDouble());
 
-        for (Product p : products) {
-            System.out.println(p);
-            System.out.println("---------------------");
-        }
+    IO.print("New sale price: ");
+    p.setSalePrice(scanner.nextDouble());
+
+    IO.print("New quantity on hand: ");
+    p.setQuantityOnHand(scanner.nextInt());
+
+    IO.print("New quantity needed: ");
+    p.setQuantityNeeded(scanner.nextInt());
+    scanner.nextLine();
+
+    IO.print("New instructions: ");
+    p.setSpecialInstructions(scanner.nextLine());
+
+    IO.println("Product updated.");
+}
+
+// Method to delete a product
+static void deleteProduct() {
+
+    IO.print("Enter SKU to delete: ");
+    String sku = scanner.nextLine();
+
+    Product p = findProduct(sku);
+
+    if (p != null) {
+        products.remove(p);
+        IO.println("Product deleted.");
+    } else {
+        IO.println("Product not found.");
+    }
+}
+
+// Method to display a single product
+static void displayProduct() {
+
+    IO.print("Enter SKU: ");
+    String sku = scanner.nextLine();
+
+    Product p = findProduct(sku);
+
+    if (p != null) {
+        IO.println(p);
+    } else {
+        IO.println("Product not found.");
+    }
+}
+
+// Method to display all products in the list
+static void displayAllProducts() {
+
+    if (products.isEmpty()) {
+        IO.println("No products available.");
+        return;
+    }
+
+    // Loop through list and print each product
+    for (Product p : products) {
+        IO.println(p);
+        IO.println("---------------------");
     }
 }
